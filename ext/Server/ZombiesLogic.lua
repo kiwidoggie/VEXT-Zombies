@@ -26,12 +26,15 @@ function ZombiesLogic:OnUpdate(p_Delta, p_SimulationDelta)
 	-- Check game over condition
 	if self.m_CurrentRoundTime >= self.m_RoundTime and self.m_IsInGame == true then
 		self:OnGameOver()
+		return
 	end
 	
 	-- Check if we are at an even minute to announce how many minutes are left
 	if self.m_IsInGame == true and self.m_CurrentRoundTime % 60 == 0 and self.m_CurrentRoundTime ~= 0 then
 		self:AnnounceTimeLeft()
+		return
 	end
+	
 	
 	if self.m_IsInGame == true then
 		self:OnIngame(p_Delta, p_SimulationDelta)
@@ -54,16 +57,19 @@ function ZombiesLogic:OnPregame(p_Delta, p_SimulationDelta)
 	if self.m_IsInGame == true then
 		return
 	end
-	
-	-- Force everyone to humans, I don't give a fuck.
-	Events:Dispatch("TeamManager:InitTeams")
 
-	-- TODO: Check to see if the game is ready to start
-	local s_HumanCount = TeamSquadManager:GetTeamPlayerCount(TeamId.Team1)
+	-- Check every 2 seconds
+	if self.m_CurrentRoundTime % 2 == 0 then
+		-- Force everyone to humans, I don't give a fuck.
+		Events:Dispatch("TeamManager:InitTeams")
 
-	if s_HumanCount > 1 then
-		self:SetIsInGame(true)
-		Events:Dispatch("TeamManager:SelectZombie")
+		-- TODO: Check to see if the game is ready to start
+		local s_HumanCount = TeamSquadManager:GetTeamPlayerCount(TeamId.Team1)
+
+		if s_HumanCount > 1 then
+			self:SetIsInGame(true)
+			Events:Dispatch("TeamManager:SelectZombie")
+		end
 	end
 end
 
@@ -110,6 +116,10 @@ function ZombiesLogic:AnnounceGameResults()
 	end
 	
 	ServerChatManager:SendMessage("Zombies spread the infection to all humans!")
+end
+
+function ZombiesLogic:OnSpawnOnSelectedSpawnPoint(p_Player)
+	-- YOLO
 end
 
 return ZombiesLogic

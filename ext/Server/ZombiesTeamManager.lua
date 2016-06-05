@@ -10,6 +10,8 @@ function ZombiesTeamManager:__init()
 	self.m_InitTeamsEvent = Events:Subscribe("TeamManager:InitTeams", self, self.OnInitTeams)
 	self.m_SelectZombieEvent = Events:Subscribe("TeamManager:SelectZombie", self, self.OnSelectZombies)
 	
+	self.m_SoldierToKill = nil
+	
 	self.m_IsInGame = false
 end
 
@@ -53,18 +55,11 @@ function ZombiesTeamManager:OnPlayerKilled(p_Victom, p_Inflictor, p_Position, p_
 	end
 end
 
+-- This should only be called on player killed
 function ZombiesTeamManager:InfectPlayer(p_Player)
 	-- Ensure that our player is valid
 	if p_Player == nil then
 		return
-	end
-	
-	-- In order to properly switch team, we will need to kill the player if they are alive
-	local s_Soldier = p_Player.soldier
-	if s_Soldier ~= nil then
-		if p_Player.alive == true then
-			s_Soldier:Kill(false)
-		end
 	end
 	
 	-- Change the players team
@@ -95,16 +90,21 @@ function ZombiesTeamManager:OnPlayerRespawn(p_Player)
 end
 
 function ZombiesTeamManager:InitTeams()
-	local s_Players = PlayerManager:GetPlayers()
-	for s_Index, s_Player in pairs(s_Players) do
+	for s_Index, s_Player in pairs(PlayerManager:GetPlayers()) do
+		-- Reset our soldier to kill
+		self.m_SoldierToKill = nil
+		
+		-- If we are not on the human team kill
 		if s_Player.teamID ~= TeamId.Team1 then
-			local s_Soldier = s_Player.soldier
-			if s_Soldier ~= nil then
-				if s_Player.alive == true then
-					s_Soldier:Kill(false)
-				end
+			-- Get the soldier
+			self.m_SoldierToKill = s_Player.soldier
+			
+			-- Attempt to kill the player
+			if self.m_SoldierToKill ~= nil then
+				self.m_SoldierToKill:Kill(false)
 			end
 			
+			-- Set the player to the human team
 			s_Player.teamID = TeamId.Team1
 		end
 	end
@@ -117,19 +117,23 @@ function ZombiesTeamManager:SelectZombie()
 	end
 
 	local s_SelectedIndex = math.random(0, s_PlayerCount - 1)
-
-	local s_Players = PlayerManager:GetPlayers()
-	for s_Index, s_Player in pairs(s_Players) do
+	
+	for s_Index, s_Player in pairs(PlayerManager:GetPlayers()) do
+		-- Reset our soldier to kill
+		self.m_SoldierToKill = nil
+		
+		-- If we have our lucky winner
 		if s_Index == s_SelectedIndex then
-			local s_Soldier = s_Player.soldier
-			if s_Soldier ~= nil then
-				if s_Player.alive == true then
-					s_Soldier:Kill(false)
-				end
+			-- Save our soldier
+			self.m_SoldierToKill = s_Player.soldier
+			if self.m_SoldierToKill ~= nil then
+				self.m_SoldierToKill:Kill(false)
 			end
 			
+			-- Switch the team to zombies
 			s_Player.teamID = TeamId.Team2
 			
+			-- Echo out our message
 			ServerChatManager:SendMessage("Selected new Zombie: " .. s_Player.name)
 			return
 		end
