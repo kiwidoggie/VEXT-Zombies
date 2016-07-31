@@ -51,11 +51,6 @@ function ZombiesVisuals:SetFlashlight(p_Instance, p_Guid)
 		s_Instance.coneOuterAngle = 90
 		s_Instance.frustumFov = 50
 	end
-
-	if p_Instance.typeName == "EmitterTemplateData" then
-		local s_Instance = EmitterTemplateData(p_Instance)
-		s_Instance.actAsPointLight = true
-	end
 	
 	if p_Instance.typeName == "SpotLightEntityData" then
 		local s_Instance = SpotLightEntityData(p_Instance)
