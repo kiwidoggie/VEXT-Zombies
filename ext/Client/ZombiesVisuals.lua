@@ -57,6 +57,8 @@ function ZombiesVisuals:SetFlashlight(p_Instance, p_Guid)
 		s_Instance.visible = true
 		s_Instance.castShadowsEnable = true
 		s_Instance.specularEnable = true
+		s_Instance.radius = s_Instance.radius * 2
+		s_Instance.intensity = s_Instance.intensity * 2 
 	end	
 
 	if p_Instance.typeName == "PointLightEntityData" then
@@ -64,6 +66,8 @@ function ZombiesVisuals:SetFlashlight(p_Instance, p_Guid)
 		s_Instance.visible = true
 		s_Instance.castShadowsEnable = true
 		s_Instance.specularEnable = true
+		s_Instance.radius = s_Instance.radius * 2
+		s_Instance.intensity = s_Instance.intensity * 2 
 	end	
 end
 
