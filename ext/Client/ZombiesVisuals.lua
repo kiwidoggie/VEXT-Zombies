@@ -52,21 +52,19 @@ function ZombiesVisuals:SetFlashlight(p_Instance, p_Guid)
 		s_Instance.frustumFov = 50
 	end
 
-	if p_Instance.type == "EmitterTemplateData" then
+	if p_Instance.typeName == "EmitterTemplateData" then
 		local s_Instance = EmitterTemplateData(p_Instance)
 		s_Instance.actAsPointLight = true
-		s_Instance.pointLightRadius = 100
-		s_Instance.pointLightRandomIntensityMax = 1000
 	end
 	
-	if p_Instance.type == "SpotLightEntityData" then
+	if p_Instance.typeName == "SpotLightEntityData" then
 		local s_Instance = SpotLightEntityData(p_Instance)
 		s_Instance.visible = true
 		s_Instance.castShadowsEnable = true
 		s_Instance.specularEnable = true
 	end	
 
-	if p_Instance.type == "PointLightEntityData" then
+	if p_Instance.typeName == "PointLightEntityData" then
 		local s_Instance = PointLightEntityData(p_Instance)
 		s_Instance.visible = true
 		s_Instance.castShadowsEnable = true
