@@ -405,3 +405,4 @@ function ZombiesVisuals:SetZombieVisuals(p_State)
 end
 
 return ZombiesVisuals
+
