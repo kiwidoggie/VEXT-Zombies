@@ -40,13 +40,15 @@ function ZombiesVisuals:SetFlashlight(p_Instance, p_Guid)
 	if p_Guid == Guid('5FBA51D6-059F-4284-B5BB-6E20F145C064', 'D') then
 		local s_Instance = SpotLightEntityData(p_Instance)
 		s_Instance.radius = 100
-		s_Instance.intensity = 100
+		--s_Instance.intensity = 100
 		s_Instance.castShadowsEnable = true
 	end
 	if p_Guid == Guid('995E49EE-8914-4AFD-8EF5-59125CA8F9CD', 'D') then
 		local s_Instance = SpotLightEntityData(p_Instance)
-		s_Instance.radius = 100
-		s_Instance.intensity = 20
+		--s_Instance.radius = s_Instance.radius * 1.5
+		s_Instance.intensity = s_Instance.intensity * 1.5
+		--s_Instance.radius = 100
+		--s_Instance.intensity = 20
 		s_Instance.castShadowsEnable = true
 		s_Instance.coneOuterAngle = 90
 		s_Instance.frustumFov = 50
@@ -57,8 +59,8 @@ function ZombiesVisuals:SetFlashlight(p_Instance, p_Guid)
 		s_Instance.visible = true
 		s_Instance.castShadowsEnable = true
 		s_Instance.specularEnable = true
-		s_Instance.radius = s_Instance.radius * 2
-		s_Instance.intensity = s_Instance.intensity * 2 
+		--s_Instance.radius = s_Instance.radius * 1.5
+		s_Instance.intensity = 0.02
 	end	
 
 	if p_Instance.typeName == "PointLightEntityData" then
@@ -66,8 +68,8 @@ function ZombiesVisuals:SetFlashlight(p_Instance, p_Guid)
 		s_Instance.visible = true
 		s_Instance.castShadowsEnable = true
 		s_Instance.specularEnable = true
-		s_Instance.radius = s_Instance.radius * 2
-		s_Instance.intensity = s_Instance.intensity * 2 
+		--s_Instance.radius = s_Instance.radius * 1.5
+		s_Instance.intensity = 0.02
 	end	
 end
 
@@ -95,9 +97,9 @@ function ZombiesVisuals:SetHumanVisuals(p_State)
 	local s_ColorCorrection = p_State.colorCorrection
 
 	if s_ColorCorrection ~= nil then
-		s_ColorCorrection.brightness = Vec3(1, 1, 1)
+		s_ColorCorrection.brightness = Vec3(0.1, 0.1, 0.1)
 		--s_ColorCorrection.brightness = Vec3(1.0, 1.0, 1.0)
-		s_ColorCorrection.contrast = Vec3(1.0, 1.0, 1.0)
+		s_ColorCorrection.contrast = Vec3(0.1, 0.1, 0.1)
 		s_ColorCorrection.saturation = Vec3(0.8, 0.8, 0.8)
 		s_ColorCorrection.colorGradingEnable = true
 		s_ColorCorrection.enable = true
@@ -109,7 +111,7 @@ function ZombiesVisuals:SetHumanVisuals(p_State)
 	    s_Sky.enable = true
 	    s_Sky.brightnessScale = 0.03
 	    s_Sky.sunSize = 0.004
-	    s_Sky.sunScale = 5.0
+	    s_Sky.sunScale = 0.03
 	    s_Sky.panoramicUVMinX = 0.0
 	    s_Sky.panoramicUVMaxX = 1.0
 	    s_Sky.panoramicUVMinY = 0.0
@@ -274,7 +276,7 @@ function ZombiesVisuals:SetZombieVisuals(p_State)
 		s_TonemapData.bloomScale = Vec3(0.600000023842, 0.600000023842, 0.600000023842)
 		s_TonemapData.minExposure = 0.25
 		s_TonemapData.middleGray = 0.25
-		s_TonemapData.maxExposure = 5.0
+		s_TonemapData.maxExposure = 0.25
 		s_TonemapData.exposureAdjustTime = 0.5
 		s_TonemapData.chromostereopsisEnable = false
 		s_TonemapData.chromostereopsisScale = 1.0
