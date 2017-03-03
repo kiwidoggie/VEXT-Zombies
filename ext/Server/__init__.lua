@@ -15,7 +15,7 @@ function ZombiesServer:__init()
 	-- This shit crashes... rip, TODO: Bugfix within VU
 	--self.m_SoldierDamageHook = Hooks:Install('Soldier:DamageSimple', self, self.SoldierDamage)
 	
-	ServerChatManager:SendMessage("Init")
+	ChatManager:SendMessage("Init")
 end
 
 function ZombiesServer:OnUpdate(p_Delta, p_SimulationDelta)
@@ -25,7 +25,7 @@ function ZombiesServer:OnUpdate(p_Delta, p_SimulationDelta)
 	local s_HumanCount = TeamSquadManager:GetTeamPlayerCount(TeamId.Team1)
 	local s_ZombieCount = TeamSquadManager:GetTeamPlayerCount(TeamId.Team2)
 	if s_HumanCount ~= 0 then
-		local s_Calculation = s_ZombieCount / s_HumanCount
+		s_Calculation = s_ZombieCount / s_HumanCount
 	
 		self.m_HumanCurrentDamage = math.min(2, s_Calculation)
 	end
@@ -67,4 +67,4 @@ function ZombiesServer:SoldierDamage(p_Hook, p_Soldier, p_Giver, p_Damage, p_Dam
 	return p_Hook:CallOriginal(p_Soldier, p_Giver, p_Damage, p_DamageOverTime, p_DamageType)
 end
 
-local g_AdminServer = ZombiesServer()
+g_AdminServer = ZombiesServer()

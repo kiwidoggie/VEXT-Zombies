@@ -36,41 +36,44 @@ function ZombiesVisuals:OnReadInstance(p_Instance, p_Guid)
 	self:SetFlashlight(p_Instance, p_Guid)
 end
 
-function ZombiesVisuals:SetFlashlight(p_Instance, p_Guid)
-	if p_Guid == Guid('5FBA51D6-059F-4284-B5BB-6E20F145C064', 'D') then
-		local s_Instance = SpotLightEntityData(p_Instance)
-		s_Instance.radius = 100
-		--s_Instance.intensity = 100
-		s_Instance.castShadowsEnable = true
-	end
-	if p_Guid == Guid('995E49EE-8914-4AFD-8EF5-59125CA8F9CD', 'D') then
-		local s_Instance = SpotLightEntityData(p_Instance)
-		--s_Instance.radius = s_Instance.radius * 1.5
-		s_Instance.intensity = s_Instance.intensity * 1.5
-		--s_Instance.radius = 100
-		--s_Instance.intensity = 20
-		s_Instance.castShadowsEnable = true
-		s_Instance.coneOuterAngle = 90
-		s_Instance.frustumFov = 50
-	end
-	
-	if p_Instance.typeName == "SpotLightEntityData" then
+function ZombiesVisuals:SetFlashlight(p_Instance, p_Guid)	
+	if p_Instance.typeName == "SpotLightEntityData" and
+		p_Guid ~= Guid('5FBA51D6-059F-4284-B5BB-6E20F145C064', 'D') then
 		local s_Instance = SpotLightEntityData(p_Instance)
 		s_Instance.visible = true
 		s_Instance.castShadowsEnable = true
 		s_Instance.specularEnable = true
-		--s_Instance.radius = s_Instance.radius * 1.5
-		s_Instance.intensity = 0.02
+		s_Instance.radius = s_Instance.radius * 1.5
+		s_Instance.intensity = s_Instance.intensity * 1.5
 	end	
 
-	if p_Instance.typeName == "PointLightEntityData" then
+	if p_Instance.typeName == "PointLightEntityData" and
+		p_Guid ~= Guid('5FBA51D6-059F-4284-B5BB-6E20F145C064', 'D') then
 		local s_Instance = PointLightEntityData(p_Instance)
 		s_Instance.visible = true
 		s_Instance.castShadowsEnable = true
 		s_Instance.specularEnable = true
-		--s_Instance.radius = s_Instance.radius * 1.5
-		s_Instance.intensity = 0.02
+		s_Instance.radius = s_Instance.radius * 1.5
+		s_Instance.intensity = s_Instance.intensity * 1.5
 	end	
+	
+	if p_Guid == Guid('5FBA51D6-059F-4284-B5BB-6E20F145C064', 'D') then
+		local s_Instance = SpotLightEntityData(p_Instance)
+		s_Instance.radius = 100
+		s_Instance.intensity = 100
+		s_Instance.castShadowsEnable = true
+	end
+	
+	if p_Guid == Guid('995E49EE-8914-4AFD-8EF5-59125CA8F9CD', 'D') then
+		local s_Instance = SpotLightEntityData(p_Instance)
+		s_Instance.radius = s_Instance.radius * 1.5
+		s_Instance.intensity = s_Instance.intensity * 1.5
+		s_Instance.radius = 100
+		s_Instance.intensity = 20
+		s_Instance.castShadowsEnable = true
+		s_Instance.coneOuterAngle = 90
+		s_Instance.frustumFov = 50
+	end
 end
 
 function ZombiesVisuals:FixEnvironmentState(p_State)
@@ -97,9 +100,9 @@ function ZombiesVisuals:SetHumanVisuals(p_State)
 	local s_ColorCorrection = p_State.colorCorrection
 
 	if s_ColorCorrection ~= nil then
-		s_ColorCorrection.brightness = Vec3(0.1, 0.1, 0.1)
+		s_ColorCorrection.brightness = Vec3(0.60, 0.60, 0.60)
 		--s_ColorCorrection.brightness = Vec3(1.0, 1.0, 1.0)
-		s_ColorCorrection.contrast = Vec3(0.1, 0.1, 0.1)
+		s_ColorCorrection.contrast = Vec3(0.60, 0.60, 0.60)
 		s_ColorCorrection.saturation = Vec3(0.8, 0.8, 0.8)
 		s_ColorCorrection.colorGradingEnable = true
 		s_ColorCorrection.enable = true

@@ -37,4 +37,4 @@ function ZombiesClient:OnStateRemoved(p_State)
 	self.m_Visuals:OnStateChanged(p_State)
 end
 
-local g_ZombiesClient = ZombiesClient()
+g_ZombiesClient = ZombiesClient()

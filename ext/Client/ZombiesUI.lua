@@ -50,7 +50,7 @@ function ZombiesUI:OnReadInstance(p_Instance, p_Guid)
 				s_Node.name == "OverviewMap" or
 				--s_Node.name == "Grid" or
 				s_Node.name == "SpawnPointsHeader" or
-				--s_Node.name == "TabBar" then
+				s_Node.name == "TabBar" then
 				
 				g_Logger:Write("Removing UI Node: " .. s_Node.name)
 				s_Instance:RemoveNodesAt(i)
