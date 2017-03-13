@@ -1,9 +1,9 @@
 class "ZombiesClient"
 
-local ZombiesVisuals = require "ZombiesVisuals"
-local ZombiesUI = require "ZombiesUI"
+ZombiesVisuals = require "ZombiesVisuals"
+ZombiesUI = require "ZombiesUI"
 
-local g_Logger = require "__shared/Logger"
+g_Logger = require "__shared/Logger"
 
 function ZombiesClient:__init()
 	-- Init the visual tweaks

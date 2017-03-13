@@ -1,9 +1,10 @@
+
 class "ZombiesShared"
 
 SharedUnlocks = require '__shared/SharedUnlocks'
 SharedSpecials = require '__shared/SharedSpecials'
 
-local g_Logger = require "__shared/Logger"
+g_Logger = require "__shared/Logger"
 
 function ZombiesShared:__init()
 	g_Logger:Write("Zombies: Shared Zombies Init.")

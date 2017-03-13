@@ -1,7 +1,8 @@
+
 class "ZombiesServer"
 
-local ZombiesTeamManager = require "ZombiesTeamManager"
-local ZombiesLogic = require "ZombiesLogic"
+ZombiesTeamManager = require "ZombiesTeamManager"
+ZombiesLogic = require "ZombiesLogic"
 
 function ZombiesServer:__init()
 	self.m_TeamManager = ZombiesTeamManager()
