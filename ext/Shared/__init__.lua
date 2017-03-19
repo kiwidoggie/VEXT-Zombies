@@ -1,10 +1,9 @@
-
 class "ZombiesShared"
 
 SharedUnlocks = require '__shared/SharedUnlocks'
 SharedSpecials = require '__shared/SharedSpecials'
 
-g_Logger = require "__shared/Logger"
+g_Logger = require '__shared/Logger'
 
 function ZombiesShared:__init()
 	g_Logger:Write("Zombies: Shared Zombies Init.")
@@ -30,4 +29,4 @@ function ZombiesShared:OnReadInstance(p_Instance, p_Guid)
 	self.m_SharedSpecials:OnReadInstance(p_Instance, p_Guid)
 end
 
-local g_ZombiesShared = ZombiesShared()
+g_ZombiesShared = ZombiesShared()
