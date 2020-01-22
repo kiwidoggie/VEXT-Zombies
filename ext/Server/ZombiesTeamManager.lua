@@ -42,8 +42,8 @@ function ZombiesTeamManager:OnPlayerKilled(p_Victom, p_Inflictor, p_Position, p_
 		return
 	end
 		
-	s_VictomTeam = p_Victom.teamID
-	s_AttackerTeam = p_Inflictor.teamID
+	s_VictomTeam = p_Victom.teamId
+	s_AttackerTeam = p_Inflictor.teamId
 	
 	-- Send a debug message each time a zombie gets killed by a human
 	if s_VictomTeam == TeamId.Team2 and s_AttackerTeam == TeamId.Team1 then
@@ -65,7 +65,7 @@ function ZombiesTeamManager:InfectPlayer(p_Player)
 	end
 	
 	-- Change the players team
-	p_Player.teamID = TeamId.Team2
+	p_Player.teamId = TeamId.Team2
 	
 	-- Send out notification to all players
 	ChatManager:SendMessage("Human " .. p_Player.name .. " has been infected!")
@@ -77,7 +77,7 @@ function ZombiesTeamManager:OnPlayerRespawn(p_Player)
 		-- return
 	-- end
 	
-	-- local s_PlayerTeam = p_Player.teamID
+	-- local s_PlayerTeam = p_Player.teamId
 	
 	-- -- If the player that spawned is on the zombies team, give them extra health
 	-- if s_PlayerTeam == TeamId.Team2 then
@@ -91,12 +91,14 @@ function ZombiesTeamManager:OnPlayerRespawn(p_Player)
 	-- end
 end
 
+-- This function goes through and moves all players to the human side (Team1)
 function ZombiesTeamManager:InitTeams()
+	-- Get all of the players
 	s_Players = PlayerManager:GetPlayers()
 	
 	for s_Index, s_Player in ipairs(s_Players) do		
 		-- If we are not on the human team kill
-		if s_Player.teamID ~= TeamId.Team1 then
+		if s_Player.teamId ~= TeamId.Team1 then
 			-- Attempt to kill the player
 			if s_Player.alive ~= true then
 				goto continue
@@ -110,7 +112,7 @@ function ZombiesTeamManager:InitTeams()
 			::continue::
 			
 			-- Set the player to the human team
-			s_Player.teamID = TeamId.Team1
+			s_Player.teamId = TeamId.Team1
 		end
 	end
 end
@@ -129,38 +131,30 @@ function ZombiesTeamManager:SelectZombie()
 	--print("select 2")
 	
 	for s_Index, s_Player in ipairs(s_Players) do
-		-- If we do not have our lucky winner
+		-- If we do not have our lucky winner, skip
 		if s_Index ~= s_SelectedIndex then
 			goto zcontinue
 		end
 		
-		print("select 3")
-		
+		-- If the player is already dead, just change the team
 		if s_Player.alive ~= true then
 			goto changeteams
 		end
 		
-		print("select 3")
-		
+		-- Get the soldier if they are alive
 		s_Soldier = s_Player.soldier
-		
 		if s_Soldier ~= nil then
-			print("select 4 " .. s_Player.name)
+			print("killing player " .. s_Player.name .. " to become zombie")
 			s_Soldier:Kill(false)
 		end
 		
 		::changeteams::
 		
-		print("select 5")
-		
 		-- Switch the team to zombies
-		s_Player.teamID = TeamId.Team2
+		s_Player.teamId = TeamId.Team2
 		
-		print("select 6")
 		-- Echo out our message
-		ChatManager:SendMessage("Selected new Zombie: " .. s_Player.name)
-		print("select 7")
-		
+		ChatManager:SendMessage("WATCH OUT " .. s_Player.name .. " IS THE NEW ZOMBIE! RUN!")		
 		::zcontinue::
 	end
 end

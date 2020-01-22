@@ -22,7 +22,7 @@ end
 function SharedUnlocks:LockHumans(p_Instance)
 	local s_Instance = CustomizationUnlockParts(p_Instance)
 	
-	g_Logger:Write("LockHumans CategoryID: " .. s_Instance.uICategorySid)
+	--g_Logger:Write("LockHumans CategoryID: " .. s_Instance.uICategorySid)
 	
 	if 	s_Instance.uICategorySid == "ID_M_SOLDIER_GADGET2" or
 		s_Instance.uICategorySid == "GADGET1" or
@@ -33,11 +33,13 @@ function SharedUnlocks:LockHumans(p_Instance)
 		g_Logger:Write("Cleared unlocks for " .. s_Instance.uICategorySid)
 	end
 
+	-- Check to see if this instance we just cleared out
 	local s_Count = s_Instance:GetSelectableUnlocksCount()
 	if s_Count == 0 then
 		return
 	end
 	
+	-- Remove grenades and the medic bag
 	s_Count = s_Count - 1
 	for i=s_Count,0,-1 do 
 		local s_UnlockInstance = s_Instance:GetSelectableUnlocksAt(i)		

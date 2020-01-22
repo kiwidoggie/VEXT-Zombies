@@ -1,7 +1,7 @@
 class "Logger"
 
 function Logger:__init()
-	print("Logger Init")
+	print("[Zombies] Logger Init")
 end
 
 function Logger:Write(p_Message)
